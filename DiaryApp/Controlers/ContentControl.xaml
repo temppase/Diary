@@ -1,0 +1,84 @@
+﻿<UserControl x:Class="DiaryApp.Controlers.ContentControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:DiaryApp.Controlers"
+             mc:Ignorable="d" FontSize="18"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <Style TargetType="{x:Type TextBlock}" x:Key="WrapText">
+            <Setter Property="TextWrapping" Value="Wrap"/>
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="{x:Type TextBlock}" x:Key="BackFore">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Gray"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+            <Setter Property="Padding" Value="5"/>
+        </Style>
+        <Style TargetType="{x:Type DataGridCell}" x:Key="CellStyle" >
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="VerticalContentAlignment" Value="Center"/>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="auto"/>
+            <RowDefinition Height="*"/>
+        </Grid.RowDefinitions>
+        <TextBlock x:Name="C_header"
+                   FontSize="24" FontWeight="Bold" HorizontalAlignment="Center"/>
+        <TextBox Grid.Row="1" HorizontalAlignment="Left" 
+                 x:Name="T_label" Width="200" Height="30"/>
+        <TextBox Grid.Row="1" HorizontalAlignment="Left" 
+                 x:Name="T_desc" Width="350" Margin="210,0,0,0" Height="auto"/>
+        <Button Grid.Row="1" Width="55" HorizontalAlignment="Right" Margin="0,0,155,0"
+                x:Name="Add" Content="Add" Height="30" Click="Add_Click" Background="LightBlue"/>
+        <TextBox Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap"
+                 x:Name="E_label" Width="200" Height="30" Margin="0,3,0,3" />
+        <TextBox Grid.Row="2" HorizontalAlignment="Left" TextWrapping="Wrap" Padding="3,0,5,0"
+                 x:Name="E_desc" Width="auto" Height="auto" Margin="210,3,65,3"/>
+        <Button Grid.Row="2" Width="60" HorizontalAlignment="Right" Margin="0,30,0,0"
+                x:Name="Edit" Content="Edit" Height="30" Click="Edit_Click" Background="LightGreen"/>
+        <Button Grid.Row="2" Width="60" HorizontalAlignment="Right" Margin="0,0,0,30"
+                x:Name="Delete" Content="Del" Height="30" Click="Delete_Click" Background="DarkSalmon"/>
+        <DataGrid Grid.Row="3" 
+                  x:Name="MyGrid" 
+                  CanUserAddRows="False"  
+                  AutoGenerateColumns="False" 
+                  EnableRowVirtualization="false" 
+                  EnableColumnVirtualization="false" 
+                  SelectedItem="{Binding Path=Selected, Mode=TwoWay}" 
+                  Background="Black"
+                  MouseLeftButtonUp="MyGrid_MouseLeftButtonUp">
+            <DataGrid.Columns>
+                <DataGridTextColumn Header="Line"  
+                                    Binding="{Binding Line}" 
+                                    Width="45" 
+                                    ElementStyle="{StaticResource BackFore}" 
+                                    CellStyle="{StaticResource CellStyle}"/>
+                <DataGridTextColumn Header="Label"  
+                                    Binding="{Binding Label}" 
+                                    Width="100" 
+                                    ElementStyle="{StaticResource WrapText}" 
+                                    CellStyle="{StaticResource CellStyle}"/>
+                <DataGridTextColumn Header="Description"  
+                                    Binding="{Binding Desc}" 
+                                    Width="*"
+                                    ElementStyle="{StaticResource WrapText}" 
+                                    CellStyle="{StaticResource CellStyle}"/>
+                <DataGridTextColumn Header="Time"  
+                                    Binding="{Binding Time}" 
+                                    Width="150"
+                                    ElementStyle="{StaticResource BackFore}" 
+                                    CellStyle="{StaticResource CellStyle}"/>
+            </DataGrid.Columns>
+        </DataGrid>
+    </Grid>
+</UserControl>
